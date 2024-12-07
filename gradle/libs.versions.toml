@@ -1,0 +1,23 @@
+[versions]
+paperApiVersion = "1.21.3-R0.1-SNAPSHOT"
+
+lombokVersion = "1.18.30"
+
+configlibVersion = "4.5.0"
+drinkVersion = "1.5.3"
+
+universalSchedulerVersion = "0.1.6"
+
+bstatsBukkitVersion = "3.0.2"
+
+
+[libraries]
+paperApi = { module = "io.papermc.paper:paper-api", version.ref = "paperApiVersion" }
+lombok = { module = "org.projectlombok:lombok", version.ref = "lombokVersion" }
+configlib = { module = "de.exlll:configlib-yaml", version.ref = "configlibVersion" }
+configlibPaper = { module = "de.exlll:configlib-paper", version.ref = "configlibVersion" }
+
+drink = { module = "com.github.alexdev03:drink", version.ref = "drinkVersion" }
+
+universalScheduler = { module = "com.github.Anon8281:UniversalScheduler", version.ref = "universalSchedulerVersion" }
+bstatsBukkit = { module = "org.bstats:bstats-bukkit", version.ref = "bstatsBukkitVersion" }

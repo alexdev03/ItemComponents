@@ -1,0 +1,9 @@
+name: ItemComponents
+version: '${version}'
+main: org.alexdev.itemcomponents.ItemComponents
+api-version: '1.21'
+author: AlexDev_
+folia-supported: true
+libraries:
+  - de.exlll:configlib-yaml:${configlibVersion}
+  - de.exlll:configlib-paper:${configlibVersion}
