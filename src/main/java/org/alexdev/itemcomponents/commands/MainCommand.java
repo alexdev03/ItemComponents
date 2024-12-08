@@ -14,6 +14,7 @@ import org.alexdev.itemcomponents.commands.types.*;
 import org.alexdev.itemcomponents.commands.types.custom.EnchantmentsComponentCommand;
 import org.alexdev.itemcomponents.commands.types.custom.EquippableComponentCommand;
 import org.alexdev.itemcomponents.commands.types.custom.UnbreakableComponentCommand;
+import org.bukkit.DyeColor;
 import org.bukkit.inventory.ItemRarity;
 import org.bukkit.plugin.Plugin;
 
@@ -103,10 +104,56 @@ public class MainCommand {
             command.then(Commands.literal("itemModel").then(new KeyComponentCommand("itemModel", DataComponentTypes.ITEM_MODEL).getNode()));
             //skip lore
             command.then(Commands.literal("rarity").then(new EnumComponentCommand<>("rarity", DataComponentTypes.RARITY, ItemRarity.class).getNode()));
-            command.then(Commands.literal("mapsPostProcessing").then(new EnumComponentCommand<>("mapsPostProcessing", DataComponentTypes.MAP_POST_PROCESSING, MapPostProcessing.class).getNode()));
             command.then(new EnchantmentsComponentCommand("enchantments", DataComponentTypes.ENCHANTMENTS).getNode());
+            //can place on
+            //can break
+            //attribute modifiers
+            //custom model data
+            command.then(new NonValuedComponentCommand("hideAdditionalTooltip", DataComponentTypes.HIDE_ADDITIONAL_TOOLTIP).getNode());
+            command.then(new NonValuedComponentCommand("hideTooltip", DataComponentTypes.HIDE_TOOLTIP).getNode());
+            command.then(Commands.literal("repairCost").then(new IntegerComponentCommand("repairCost", DataComponentTypes.REPAIR_COST, IntegerComponentCommand.IntegerType.NON_NEGATIVE).getNode()));
+            command.then(Commands.literal("enchantmentGlintOverride").then(new BooleanComponentCommand("enchantmentGlintOverride", DataComponentTypes.ENCHANTMENT_GLINT_OVERRIDE).getNode()));
+            command.then(new NonValuedComponentCommand("intangibleProjectile", DataComponentTypes.INTANGIBLE_PROJECTILE).getNode());
+            //food
+            //consumable
+            //use remainder
+            //use cooldown
+            //damage resistant
+            //tool
+            //enchantable
             command.then(new EquippableComponentCommand("equippable", DataComponentTypes.EQUIPPABLE).getNode());
-
+            //repairable
+            command.then(new NonValuedComponentCommand("glider", DataComponentTypes.GLIDER).getNode());
+            //tooltip style
+            //death protection
+            command.then(new EnchantmentsComponentCommand("storedEnchantments", DataComponentTypes.STORED_ENCHANTMENTS).getNode());
+            //dyeable
+            //map color
+            //map id
+            //map decorations
+            command.then(Commands.literal("mapPostProcessing").then(new EnumComponentCommand<>("mapPostProcessing", DataComponentTypes.MAP_POST_PROCESSING, MapPostProcessing.class).getNode()));
+            //charged projectiles
+            //bundle contents
+            //potion contents
+            //suspicious steew effects
+            //writable book content
+            //written book content
+            //trim
+            //instrument
+            //ominous bottle amplifier
+            //jukebox playable
+            //recipes
+            //lodestone tracker
+            //firework explosion
+            //fireworks
+            //profile
+            //note block sound
+            //banner pattern layers
+            command.then(Commands.literal("baseColor").then(new EnumComponentCommand<>("baseColor", DataComponentTypes.BASE_COLOR, DyeColor.class).getNode()));
+            //pot decorations
+            //container
+            //block data
+            //container loot
 
             command.then(new RemoveComponentCommand("remove", plugin).getNode());
 

@@ -16,13 +16,11 @@ import io.papermc.paper.command.brigadier.Commands;
 import io.papermc.paper.command.brigadier.MessageComponentSerializer;
 import io.papermc.paper.command.brigadier.argument.CustomArgumentType;
 import io.papermc.paper.datacomponent.DataComponentType;
-import net.kyori.adventure.key.InvalidKeyException;
-import net.kyori.adventure.text.Component;
+import io.papermc.paper.datacomponent.DataComponentTypes;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.alexdev.itemcomponents.ItemComponents;
 import org.alexdev.itemcomponents.commands.types.AbstractCommand;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.util.StringUtil;
 import org.intellij.lang.annotations.Subst;
 import org.jetbrains.annotations.NotNull;
 
@@ -34,7 +32,6 @@ import java.util.concurrent.CompletableFuture;
 
 public class RemoveComponentCommand extends AbstractCommand {
 
-    private final ItemComponents plugin;
     private static final Map<String, DataComponentType> components;
 
     static {
@@ -43,18 +40,19 @@ public class RemoveComponentCommand extends AbstractCommand {
 
     public RemoveComponentCommand(@NotNull String name, @NotNull ItemComponents plugin) {
         super(name);
-        this.plugin = plugin;
+        loadComponents(plugin);
     }
 
-    private void loadComponents() {
+    private static void loadComponents(@NotNull ItemComponents plugin) {
         try {
-            final List<Field> fields = List.of(DataComponentType.class.getFields());
+            final List<Field> fields = List.of(DataComponentTypes.class.getFields());
             for (final Field field : fields) {
-                if (field.getType().isAssignableFrom(DataComponentType.class)) {
+                if (DataComponentType.class.isAssignableFrom(field.getType())) {
                     final DataComponentType dataComponentType = (DataComponentType) field.get(null);
                     components.put(field.getName(), dataComponentType);
                     final String name = field.getName().charAt(0) + field.getName().substring(1).toLowerCase().replace("_", "");
                     components.put(name, dataComponentType);
+                    components.put(name.toUpperCase(), dataComponentType);
                 }
             }
         } catch (IllegalAccessException e) {
@@ -106,7 +104,7 @@ public class RemoveComponentCommand extends AbstractCommand {
         @Override
         public <S> CompletableFuture<Suggestions> listSuggestions(CommandContext<S> context, SuggestionsBuilder builder) {
             components.keySet().stream()
-                    .filter(s -> s.equals(s.toUpperCase()))
+                    .filter(s -> !s.equals(s.toUpperCase()))
                     .filter(s -> s.startsWith(builder.getRemainingLowerCase()))
                     .forEach(builder::suggest);
 
