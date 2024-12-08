@@ -105,7 +105,8 @@ public class MainCommand {
             //skip lore
             command.then(Commands.literal("rarity").then(new EnumComponentCommand<>("rarity", DataComponentTypes.RARITY, ItemRarity.class).getNode()));
             command.then(new EnchantmentsComponentCommand("enchantments", DataComponentTypes.ENCHANTMENTS).getNode());
-            //can place on
+            command.then(new ItemPredicateComponentCommand("canPlaceOn", DataComponentTypes.CAN_PLACE_ON).getNode());
+            command.then(new ItemPredicateComponentCommand("canBreak", DataComponentTypes.CAN_BREAK).getNode());
             //can break
             //attribute modifiers
             //custom model data
