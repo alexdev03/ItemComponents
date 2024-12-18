@@ -2,6 +2,7 @@ package org.alexdev.itemcomponents.commands;
 
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
+import com.mojang.brigadier.tree.LiteralCommandNode;
 import io.papermc.paper.command.brigadier.CommandSourceStack;
 import io.papermc.paper.command.brigadier.Commands;
 import io.papermc.paper.datacomponent.DataComponentTypes;
@@ -13,6 +14,7 @@ import org.alexdev.itemcomponents.ItemComponents;
 import org.alexdev.itemcomponents.commands.types.*;
 import org.alexdev.itemcomponents.commands.types.custom.EnchantmentsComponentCommand;
 import org.alexdev.itemcomponents.commands.types.custom.EquippableComponentCommand;
+import org.alexdev.itemcomponents.commands.types.custom.FoodComponentCommand;
 import org.alexdev.itemcomponents.commands.types.custom.UnbreakableComponentCommand;
 import org.bukkit.DyeColor;
 import org.bukkit.inventory.ItemRarity;
@@ -107,7 +109,6 @@ public class MainCommand {
             command.then(new EnchantmentsComponentCommand("enchantments", DataComponentTypes.ENCHANTMENTS).getNode());
             command.then(new ItemPredicateComponentCommand("canPlaceOn", DataComponentTypes.CAN_PLACE_ON).getNode());
             command.then(new ItemPredicateComponentCommand("canBreak", DataComponentTypes.CAN_BREAK).getNode());
-            //can break
             //attribute modifiers
             //custom model data
             command.then(new NonValuedComponentCommand("hideAdditionalTooltip", DataComponentTypes.HIDE_ADDITIONAL_TOOLTIP).getNode());
@@ -115,7 +116,7 @@ public class MainCommand {
             command.then(Commands.literal("repairCost").then(new IntegerComponentCommand("repairCost", DataComponentTypes.REPAIR_COST, IntegerComponentCommand.IntegerType.NON_NEGATIVE).getNode()));
             command.then(Commands.literal("enchantmentGlintOverride").then(new BooleanComponentCommand("enchantmentGlintOverride", DataComponentTypes.ENCHANTMENT_GLINT_OVERRIDE).getNode()));
             command.then(new NonValuedComponentCommand("intangibleProjectile", DataComponentTypes.INTANGIBLE_PROJECTILE).getNode());
-            //food
+            command.then(new FoodComponentCommand("food", DataComponentTypes.FOOD).getNode());
             //consumable
             //use remainder
             //use cooldown
@@ -158,7 +159,10 @@ public class MainCommand {
 
             command.then(new RemoveComponentCommand("remove", plugin).getNode());
 
-            commands.register(command.build());
+            final LiteralCommandNode<CommandSourceStack> commandNode = command.build();
+
+            commands.register(commandNode);
+            commands.register(Commands.literal("ie").redirect(commandNode).build());
         });
 
     }

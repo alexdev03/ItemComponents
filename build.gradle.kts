@@ -73,7 +73,7 @@ tasks {
 
         downloadPlugins {
             hangar("PlaceholderAPI", "2.11.6")
-            url("https://download.luckperms.net/1556/bukkit/loader/LuckPerms-Bukkit-5.4.141.jar")
+            modrinth("luckperms", "v5.4.145-bukkit")
 //            github("ViaVersion", "ViaVersion", "5.1.1", "ViaVersion-5.1.1.jar")
 //            github("ViaVersion", "ViaBackwards", "5.1.1", "ViaBackwards-5.1.1.jar")
 //            github("MilkBowl", "Vault", "1.7.3", "Vault.jar")
